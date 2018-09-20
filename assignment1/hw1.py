@@ -30,10 +30,28 @@ def histogram_times(filename):
     return crashes_per_hour
 
 def weigh_pokemons(filename, weight):
-    pass
+    pokemons = []
+    with open(filename) as data:
+        pokedex_json = json.load(data)
+        all_pokemon = pokedex_json["pokemon"]
+        
+        for index in range(len(all_pokemon)):
+            if all_pokemon[index]["weight"] == (str(weight) + " kg"):
+                pokemons.append(all_pokemon[index]["name"])
+    return pokemons
 
 def single_type_candy_count(filename):
-    pass
+    total = 0
+    with open(filename) as data:
+        pokedex_json = json.load(data)
+        all_pokemon = pokedex_json["pokemon"]
+        
+        for index in range(len(all_pokemon)):
+            if (len(all_pokemon[index]["type"]) == 1):
+                try: total += all_pokemon[index]["candy_count"]
+                except (KeyError): pass
+
+    return total
 
 def reflections_and_projections(points):
     pass
