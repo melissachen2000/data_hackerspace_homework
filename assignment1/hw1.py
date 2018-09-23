@@ -54,10 +54,31 @@ def single_type_candy_count(filename):
     return total
 
 def reflections_and_projections(points):
-    pass
+    #reflects the points over the line y = 1
+    points[1] *= -1
+    points[1] += 2
+    
+    #rotates the points Pi/2 radians about the origin
+    rotation = np.array([ [math.cos(math.pi/2), -1 * math.sin(math.pi/2)],
+                        [math.sin(math.pi/2), math.cos(math.pi/2)] ])
+    points = np.dot(rotation,points)
+    
+    #projects the point onto the line y = 3x
+    m = 3
+    scalar = (m^2 + 1) ^ (-1)
+    matrix = np.array( [ [1, m],
+                        [m, m^2] ])
+    points = np.dot(matrix,points)
+    points *= scalar
+    
+    return points
 
 def normalize(image):
-    pass
+    working = np.copy(image)
+    working = working.astype(float)
+    working -= image.min()
+    working *= float(255 / (image.max() - image.min()))
+    return working
 
 def sigmoid_normalize(image):
     pass
