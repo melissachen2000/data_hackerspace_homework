@@ -81,7 +81,7 @@ def normalize(image):
     working = working.astype(float)
     working -= image.min()
     working *= float(255 / (image.max() - image.min()))
-    return working.astype(int)
+    return working.astype(float)
 
 def sigmoid_normalize(image, a):
     working = np.copy(image)
@@ -92,4 +92,4 @@ def sigmoid_normalize(image, a):
     working = 1/ (working + 1)
     working *= 255
 
-    return working.astype(int)
+    return working.astype(float)
