@@ -7,6 +7,7 @@
 import json
 import csv
 import numpy as np
+import math
 
 def histogram_times(filename):
     crashes_per_hour = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -54,6 +55,8 @@ def single_type_candy_count(filename):
     return total
 
 def reflections_and_projections(points):
+    points = points.astype(float)
+
     #reflects the points over the line y = 1
     points[1] *= -1
     points[1] += 2
@@ -80,5 +83,13 @@ def normalize(image):
     working *= float(255 / (image.max() - image.min()))
     return working.astype(int)
 
-def sigmoid_normalize(image):
-    pass
+def sigmoid_normalize(image, a):
+    working = np.copy(image)
+    working = working.astype(float)
+    working -= 128
+    working /= -a
+    working = math.exp(working)
+    working = 1/ (working + 1)
+    working *= 255
+
+    return working.astype(int)
